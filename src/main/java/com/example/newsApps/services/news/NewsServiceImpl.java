@@ -33,10 +33,12 @@ public class NewsServiceImpl implements NewsService {
     public ResponseEntity<?> addNewsService(NewsRequest request) {
 
             User user = userRepository.findById(request.getPenulis()).orElseThrow(() -> {
-            throw new NoSuchElementException("id book is not found!");
+            throw new NoSuchElementException("id user is not found!");
         });
 
             News news = new News(request.getHeadline(), request.getArticle(), user);
+        
+
             newsRepository.save(news);    
             
             return ResponseHandler.responseMessage(201, "News successfully added!", true);    
@@ -65,7 +67,7 @@ public class NewsServiceImpl implements NewsService {
         News news = newsRepository.findById(id).orElseThrow(() -> {
             throw new NoSuchElementException("news id tidak ditemukan");
         });
-        // isi valdi
+        //apakahvvalsdi
         newsValidation.validateNews(news);
         int addCount = news.getCount() +1 ; 
         news.setCount(addCount);
