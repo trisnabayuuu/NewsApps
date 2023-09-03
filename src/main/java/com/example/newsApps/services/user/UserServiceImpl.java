@@ -35,8 +35,11 @@ public class UserServiceImpl implements UserService{
     
     @Override
     public ResponseEntity<?> getUserByIdService(String id) {
-        // TODO Auto-generated method stub
-        return null;
+        // kasih validator user id
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            throw new NoSuchElementException("id book is not found!");
+        });
+    return ResponseHandler.responseData(200, "Success", user);
     }
     
     @Override
