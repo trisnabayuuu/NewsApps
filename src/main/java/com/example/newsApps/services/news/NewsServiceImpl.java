@@ -5,16 +5,21 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.newsApps.models.News;
 import com.example.newsApps.models.User;
 import com.example.newsApps.payload.request.NewsRequest;
+import com.example.newsApps.payload.request.RecomendedNewsRequest;
 import com.example.newsApps.payload.response.ResponseHandler;
 import com.example.newsApps.repositories.NewsRepository;
 import com.example.newsApps.repositories.UserRepository;
 import com.example.newsApps.validator.NewsValidation;
+import com.example.newsApps.validator.UserValidation;
 
 
 @Service
@@ -27,6 +32,10 @@ public class NewsServiceImpl implements NewsService {
     
     @Autowired
     NewsValidation newsValidation;
+
+    @Autowired
+    UserValidation userValidation;
+    
 
 
     @Override
@@ -45,21 +54,50 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public ResponseEntity<?> addRecomendedService(String id) {
-        // TODO Auto-generated method stub
-        return null;
+    public ResponseEntity<?> getRecomendedService() {
+        List<News> recommendedNews = newsRepository.findByIsRecomendedIsTrue();
+        return ResponseHandler.responseData(200, "sukses", recommendedNews);
     }
 
     @Override
-    public ResponseEntity<?> getRecomendedService(Boolean isDeleted) {
-        // TODO Auto-generated method stub
-        return null;
+    public ResponseEntity<?> addRecomendedService(RecomendedNewsRequest request) {
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> {
+            throw new NoSuchElementException("id user is not found!");
+        });
+        userValidation.validateUser(user);
+
+        News news = newsRepository.findById(request.getNewsId()).orElseThrow(() -> {
+            throw new NoSuchElementException("id news is not found!");
+        });
+
+        newsValidation.validateNews(news);
+
+        if (user.getIsAdmin() == true) {
+            news.setIsRecomended(true);
+            newsRepository.save(news);
+
+            return ResponseHandler.responseMessage(201, "succses", true);
+        } else {
+            return ResponseHandler.responseError(401, "eror", false);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getLatestNews() {
+        List<News> latestNews = newsRepository.findFirst10ByOrderByCreateAtDesc();
+        
+        return ResponseHandler.responseData(200, "success", latestNews);
     }
 
     @Override
     public ResponseEntity<?> getTrendingService(Boolean isDeleted) {
-        // TODO Auto-generated method stub
-        return null;
+    int pageSize = 5;
+
+    Pageable pageable = PageRequest.of(0, pageSize, Sort.by(Sort.Order.desc("count")));
+
+    List<News> trendingNews = newsRepository.findByIsDeletedOrderByCountDesc(isDeleted, pageable);
+
+    return ResponseHandler.responseData(200, "success", trendingNews);
     }
 
     @Override

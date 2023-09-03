@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.example.newsApps.models.Komentar;
 import com.example.newsApps.models.News;
 import com.example.newsApps.payload.request.KomentarRequest;
-import com.example.newsApps.payload.request.NewsRequest;
 import com.example.newsApps.payload.response.ResponseHandler;
 import com.example.newsApps.repositories.KomentarRepository;
 import com.example.newsApps.repositories.NewsRepository;
@@ -33,18 +32,6 @@ public class KomentarServiceImpl implements KomentarService{
     @Autowired
     KomentarValidation komentarValidation;
 
-    // @Override
-    // public ResponseEntity<?> addKomentarService(KomentarRequest request) {
-    //     // News news = newsRepository.findById(request.get).orElseThrow(() -> {
-    //     //     throw new NoSuchElementException("news id tidak ditemukan");
-    //     // });
-    //     // //apakahvvalsdi
-    //     // newsValidation.validateNews(news);
-        
-    //     News news = new N
-    //     return null;
-    // }
-
     @Override
     public ResponseEntity<?> addKomentarService(KomentarRequest request) {
         News news = newsRepository.findById(request.getNewsId()).orElseThrow(() -> {
@@ -61,27 +48,22 @@ public class KomentarServiceImpl implements KomentarService{
 
     @Override
     public ResponseEntity<?> deleteKomentarService(String id) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public ResponseEntity<?> getKomentarByIdService(String id) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public ResponseEntity<?> getKomentarService(Boolean isDeleted) {
+    public ResponseEntity<?> getKomentarService() {
         List<Komentar> komentar = new ArrayList<>();
-        // validate
-        //tampilkan by is delete
-        if (isDeleted == null) {
-            komentar = komentarRepository.findAll();
-        } else {
-            komentar = komentarRepository.findByIsDeleted(isDeleted);
-        }
-        komentarValidation.validateKomentar(komentar);
+
+        if (komentar != null) {
+            komentar = komentarRepository.findKomentar();
+        } 
+
         return ResponseHandler.responseData(200, "success", komentar);
     }
     
