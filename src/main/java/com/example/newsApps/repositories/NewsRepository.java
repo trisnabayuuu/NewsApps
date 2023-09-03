@@ -11,6 +11,10 @@ public interface NewsRepository extends JpaRepository<News, String> {
     List<News> findByIsDeleted(Boolean isDeleted);
 
 
+    // @Query(value = ", \n" + //
+
+    // )
+    // List<News> getTrending();
     // @Query(value = "select t.id, t.created_at, t.updated_at, \n" + //
     // "t.is_returned, t.book_id, b.title,\n" + //
     // "t.user_id, u.email\n" + //

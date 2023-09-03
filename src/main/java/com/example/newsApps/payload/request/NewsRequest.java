@@ -9,7 +9,7 @@ public class NewsRequest {
     private String headline;
     
     @NotEmpty(message = "article tidak boleh kosong")
-    private Long article;
+    private String article;
 
     // @NotEmpty(message = "image tidak boleh kosong")
     // private Blob image;

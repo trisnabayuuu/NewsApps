@@ -6,9 +6,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mysql.cj.jdbc.Blob;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -33,10 +30,11 @@ public class News {
     private String id;
     
     private String headline;
-    private Long article;
+    private String article;
     // private Blob image;
 
-    private Integer count;
+    private Integer count = 0;
+    private Boolean isRecomended = false;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -48,7 +46,7 @@ public class News {
     private LocalDateTime updateAt;
     private Boolean isDeleted = false;
 
-    public News(String headline, Long article, User user) {
+    public News(String headline, String article, User user) {
         this.headline = headline;
         this.article = article;
         this.user = user;

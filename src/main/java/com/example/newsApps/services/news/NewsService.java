@@ -6,8 +6,14 @@ import com.example.newsApps.payload.request.NewsRequest;
 
 public interface NewsService {
     ResponseEntity<?> addNewsService(NewsRequest request);
+
     ResponseEntity<?> addRecomendedService(String id);
+
     ResponseEntity<?> getRecomendedService(Boolean isDeleted);
-    ResponseEntity<?> addTrendingService(String id);
+
     ResponseEntity<?> getTrendingService(Boolean isDeleted);
+
+    ResponseEntity<?> getNewsService(Boolean isDeleted);
+    
+    ResponseEntity<?> getNewsByIdService(String id);
 }

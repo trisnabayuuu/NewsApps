@@ -57,11 +57,6 @@ public class UserServiceImpl implements UserService{
         }
         User user = userRepository.findByUsername(request.getUsername());
 
-        //validasi password
-        // if (user.getIsDeleted()){
-        //     throw new NoSuchElementException("user sudah dihapus");
-        // }
-
         // validasi password
         if (!user.getPassword().equals(request.getPassword())) {
             throw new NoSuchElementException("Bad Credentials: password tidak sesuai");
