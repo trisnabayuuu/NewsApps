@@ -1,7 +1,5 @@
 package com.example.newsApps.payload.request;
 
-import com.example.newsApps.models.User;
-
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 

@@ -9,7 +9,7 @@ public interface KomentarService {
 
     ResponseEntity<?> getKomentarByIdService(String id);
     
-    ResponseEntity<?> getKomentarService(Boolean isDeleted);
+    ResponseEntity<?> getKomentarService();
     
     ResponseEntity<?> deleteKomentarService(String id);
 }

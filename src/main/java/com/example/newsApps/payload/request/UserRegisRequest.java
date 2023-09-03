@@ -20,7 +20,6 @@ public class UserRegisRequest {
     @Size(min = 8, max = 15, message = "password minimal 8 character dan maksimal 15 character")
     private String password;
     @NotNull(message = "role harus diisi")
-    // @NotEmpty(message = "role harus diisi")
     private Boolean isAdmin;
     
 }
