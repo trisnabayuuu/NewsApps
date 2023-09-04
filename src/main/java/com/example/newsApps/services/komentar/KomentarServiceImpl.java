@@ -3,7 +3,6 @@ package com.example.newsApps.services.komentar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,9 +16,8 @@ import com.example.newsApps.repositories.NewsRepository;
 import com.example.newsApps.validator.KomentarValidation;
 import com.example.newsApps.validator.NewsValidation;
 
-
 @Service
-public class KomentarServiceImpl implements KomentarService{
+public class KomentarServiceImpl implements KomentarService {
     @Autowired
     NewsRepository newsRepository;
 
@@ -38,7 +36,7 @@ public class KomentarServiceImpl implements KomentarService{
             throw new NoSuchElementException("news id tidak ditemukan");
         });
 
-        //apakahvvalsdi
+        // apakahvvalsdi
         newsValidation.validateNews(news);
         Komentar komentar = new Komentar(request.getUser(), news, request.getKomentar());
 
@@ -48,12 +46,24 @@ public class KomentarServiceImpl implements KomentarService{
 
     @Override
     public ResponseEntity<?> deleteKomentarService(String id) {
-        return null;
+        Komentar komentar = komentarRepository.findById(id).orElseThrow(() -> {
+            throw new NoSuchElementException("id is not found!");
+        });
+
+        // set is deleted menjadi true
+        komentar.setIsDeleted(true);
+
+        // save ke db
+        komentarRepository.save(komentar);
+        return ResponseHandler.responseMessage(200, "data berhasil di hapus", true);
     }
 
     @Override
     public ResponseEntity<?> getKomentarByIdService(String id) {
-        return null;
+        Komentar komentar = komentarRepository.findById(id).orElseThrow(() -> {
+            throw new NoSuchElementException("id user is not found!");
+        });
+    return ResponseHandler.responseData(200, "Success", komentar);
     }
 
     @Override
@@ -62,9 +72,9 @@ public class KomentarServiceImpl implements KomentarService{
 
         if (komentar != null) {
             komentar = komentarRepository.findKomentar();
-        } 
+        }
 
         return ResponseHandler.responseData(200, "success", komentar);
     }
-    
+
 }

@@ -21,7 +21,6 @@ import com.example.newsApps.repositories.UserRepository;
 import com.example.newsApps.validator.NewsValidation;
 import com.example.newsApps.validator.UserValidation;
 
-
 @Service
 public class NewsServiceImpl implements NewsService {
     @Autowired
@@ -29,28 +28,25 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     UserRepository userRepository;
-    
+
     @Autowired
     NewsValidation newsValidation;
 
     @Autowired
     UserValidation userValidation;
-    
-
 
     @Override
     public ResponseEntity<?> addNewsService(NewsRequest request) {
 
-            User user = userRepository.findById(request.getPenulis()).orElseThrow(() -> {
+        User user = userRepository.findById(request.getPenulis()).orElseThrow(() -> {
             throw new NoSuchElementException("id user is not found!");
         });
 
-            News news = new News(request.getHeadline(), request.getArticle(), user);
-        
+        News news = new News(request.getHeadline(), request.getArticle(), user);
 
-            newsRepository.save(news);    
-            
-            return ResponseHandler.responseMessage(201, "News successfully added!", true);    
+        newsRepository.save(news);
+
+        return ResponseHandler.responseMessage(201, "News successfully added!", true);
     }
 
     @Override
@@ -85,19 +81,19 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ResponseEntity<?> getLatestNews() {
         List<News> latestNews = newsRepository.findFirst10ByOrderByCreateAtDesc();
-        
+
         return ResponseHandler.responseData(200, "success", latestNews);
     }
 
     @Override
     public ResponseEntity<?> getTrendingService(Boolean isDeleted) {
-    int pageSize = 5;
+        int pageSize = 5;
 
-    Pageable pageable = PageRequest.of(0, pageSize, Sort.by(Sort.Order.desc("count")));
+        Pageable pageable = PageRequest.of(0, pageSize, Sort.by(Sort.Order.desc("count")));
 
-    List<News> trendingNews = newsRepository.findByIsDeletedOrderByCountDesc(isDeleted, pageable);
+        List<News> trendingNews = newsRepository.findByIsDeletedOrderByCountDesc(isDeleted, pageable);
 
-    return ResponseHandler.responseData(200, "success", trendingNews);
+        return ResponseHandler.responseData(200, "success", trendingNews);
     }
 
     @Override
@@ -105,9 +101,9 @@ public class NewsServiceImpl implements NewsService {
         News news = newsRepository.findById(id).orElseThrow(() -> {
             throw new NoSuchElementException("news id tidak ditemukan");
         });
-        //apakahvvalsdi
+        // apakahvvalsdi
         newsValidation.validateNews(news);
-        int addCount = news.getCount() +1 ; 
+        int addCount = news.getCount() + 1;
         news.setCount(addCount);
         newsRepository.save(news);
 
@@ -125,5 +121,19 @@ public class NewsServiceImpl implements NewsService {
         }
         return ResponseHandler.responseData(200, "success", news);
     }
-    
+
+    @Override
+    public ResponseEntity<?> deleteNews(String id) {
+        News news = newsRepository.findById(id).orElseThrow(() -> {
+            throw new NoSuchElementException("id is not found!");
+        });
+
+        // set is deleted menjadi true
+        news.setIsDeleted(true);
+
+        // save ke db
+        newsRepository.save(news);
+        return ResponseHandler.responseMessage(200, "data berhasil di hapus", true);
+    }
+
 }
