@@ -12,6 +12,7 @@ import com.example.newsApps.services.news.NewsService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,5 +57,10 @@ public class NewsController {
     @GetMapping("/recomended")
     public ResponseEntity<?> getRecomendedNews() {
         return newsService.getRecomendedService();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteNews(@PathVariable(value = "id") String id){
+        return newsService.deleteNews(id);
     }
 }

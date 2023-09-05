@@ -19,4 +19,6 @@ public interface NewsService {
     ResponseEntity<?> getNewsByIdService(String id);
     
     ResponseEntity<?> getLatestNews();
+
+    ResponseEntity<?> deleteNews(String id);
 }
