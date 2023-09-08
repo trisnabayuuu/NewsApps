@@ -24,9 +24,7 @@ public class UserDetailsService implements UserDetails{
     public static UserDetails buid(User user) {
         /*
          * menyimpan role lebih dari 1.
-         * bisa looping bagian role dan tambahkan ke list authorities
-         * 
-         * role hanya 1, bisa langsung ditambahkan rolenamenya
+         * bisa looping bagian role dan tambahkan ke list authorities       
          */
 
         Set<Role> roles = user.getRoles();

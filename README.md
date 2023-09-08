@@ -33,7 +33,7 @@ Untuk menjalankannya, clone dan jalankan perintah berikut:
   - **get image**: GET - http://127.0.0.1:9098/guest/files/news/f30fa948-bd40-4f77-937d-d186d8429d0e
 
 ## Documentation API Online
-For complete documentation REST API and example request body, can access to this link: **https://documenter.getpostman.com/view/12417635/2s9YBxZbTM**
+For complete documentation REST API and example request body, can access to this link: **https://documenter.getpostman.com/view/24726848/2s9YBz3vT1#dcb4f288-b5dd-494c-9430-302db8c7b6da**
 
 #
 

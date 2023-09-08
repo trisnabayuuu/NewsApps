@@ -42,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = headerAuth.substring(7);
             if (token != null && jwtUtil.validateToken(token)) {
                 /*
-                 * kalau valid, kita bisa get email untuk authenticate email tsb
+                 * kalau valid, kita bisa get username untuk authenticate username tsb
                  */
                 String username = jwtUtil.getUsernameFromToken(token);
                 if (username != null) {
