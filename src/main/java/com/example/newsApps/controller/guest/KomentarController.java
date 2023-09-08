@@ -30,10 +30,10 @@ public class KomentarController {
         return komentarService.getKomentarService();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteKomentar(@PathVariable(value = "id") String id){
-        return komentarService.deleteKomentarService(id);
-    }
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<?> deleteKomentar(@PathVariable(value = "id") String id){
+    //     return komentarService.deleteKomentarService(id);
+    // }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getKomentarById(@PathVariable(value = "id") String id){

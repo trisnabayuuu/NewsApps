@@ -12,7 +12,7 @@ import com.example.newsApps.services.komentar.KomentarService;
 public class AdminKomentarController {
     @Autowired
     KomentarService komentarService;
-    @DeleteMapping("/{id}")
+    @DeleteMapping("admin/komentar/{id}")
     public ResponseEntity<?> deleteKomentar(@PathVariable(value = "id") String id){
         return komentarService.deleteKomentarService(id);
     }

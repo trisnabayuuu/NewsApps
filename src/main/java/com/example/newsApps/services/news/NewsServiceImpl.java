@@ -57,10 +57,10 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public ResponseEntity<?> addRecomendedService(RecomendedNewsRequest request) {
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> {
-            throw new NoSuchElementException("id user is not found!");
-        });
-        userValidation.validateUser(user);
+        // User user = userRepository.findById(request.getUserId()).orElseThrow(() -> {
+        //     throw new NoSuchElementException("id user is not found!");
+        // });
+        // userValidation.validateUser(user);
 
         News news = newsRepository.findById(request.getNewsId()).orElseThrow(() -> {
             throw new NoSuchElementException("id news is not found!");
@@ -68,9 +68,10 @@ public class NewsServiceImpl implements NewsService {
 
         newsValidation.validateNews(news);
 
-        // if (user.getIsAdmin() == true) {
-        //     news.setIsRecomended(true);
-        //     newsRepository.save(news);
+        news.setIsRecomended(true);
+        newsRepository.save(news);
+        
+        // if (userisDeleted == true) {
 
             return ResponseHandler.responseMessage(201, "succses", true);
         // } else {

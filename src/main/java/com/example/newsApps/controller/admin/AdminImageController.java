@@ -19,14 +19,11 @@ public class AdminImageController {
     @Autowired
     ImageService imageService;
 
-    @PostMapping("/admin/files/book")
+    @PostMapping("/admin/files/news")
     public ResponseEntity<?> storeImage(@RequestParam(value = "file") MultipartFile file,
-            @RequestParam(value = "bookId") String bookId) throws IOException {
+            @RequestParam(value = "newsId") String bookId) throws IOException {
         return imageService.storeImage(file, bookId);
     }
 
-    @GetMapping("/files/book/{imageId}")
-    public ResponseEntity<?> loadImage(@PathVariable String imageId) {
-        return imageService.loadImage(imageId);
-    }
+    
 }

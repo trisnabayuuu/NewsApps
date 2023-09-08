@@ -28,8 +28,6 @@ public class UserDetailsService implements UserDetails{
          * 
          * role hanya 1, bisa langsung ditambahkan rolenamenya
          */
-        // List<GrantedAuthority> authorities =
-        // AuthorityUtils.commaSeparatedStringToAuthorityList("USER");
 
         Set<Role> roles = user.getRoles();
         Set<String> strRoles = new HashSet<>();

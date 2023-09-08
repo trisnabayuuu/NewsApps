@@ -1,4 +1,4 @@
-package com.example.newsApps.controller;
+package com.example.newsApps.controller.creator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

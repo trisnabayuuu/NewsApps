@@ -79,20 +79,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> loginUserService(UserLoginRequest request) {
-        // login
-        // validasi username
-        // if (!userRepository.existsByUsername(request.getUsername())){
-        // throw new NoSuchElementException("username tidak ada");
-        // }
-        // User user = userRepository.findByUsername(request.getUsername());
-
-        // // validasi password
-        // if (!user.getPassword().equals(request.getPassword())) {
-        // throw new NoSuchElementException("Bad Credentials: password tidak sesuai");
-        // }
-        // return ResponseHandler.responseData(200, "success", user);
-
-        
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 request.getUsername(), request.getPassword());
 
@@ -144,7 +130,7 @@ public class UserServiceImpl implements UserService {
             throw new NoSuchElementException("id user tidak ditemukan!");
         });
 
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
 
         return ResponseHandler.responseMessage(201, "password berhasil diganti", true);
