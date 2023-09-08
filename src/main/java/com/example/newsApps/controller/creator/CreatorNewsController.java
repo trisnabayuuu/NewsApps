@@ -1,4 +1,4 @@
-package com.example.newsApps.controller;
+package com.example.newsApps.controller.creator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/news")
-public class NewsController {
+@RequestMapping("/user/news")
+public class CreatorNewsController {
     @Autowired
     NewsService newsService;
 
@@ -29,25 +29,17 @@ public class NewsController {
         return newsService.addNewsService(request);
     }
 
-    @GetMapping
-    public ResponseEntity<?> getNews(@RequestParam(value = "deleted", defaultValue = "") Boolean isDeleted) {
-        return newsService.getNewsService(isDeleted);
-    }
+    // @GetMapping
+    // public ResponseEntity<?> getNews(@RequestParam(value = "deleted", defaultValue = "") Boolean isDeleted) {
+    //     return newsService.getNewsService(isDeleted);
+    // }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getNewsByid(@PathVariable String id) {
         return newsService.getNewsByIdService(id);
     }
 
-    @PostMapping("/recomended")
-    public ResponseEntity<?> addRecomended(@RequestBody @Valid RecomendedNewsRequest request) {
-        return newsService.addRecomendedService(request);
-    }
-
-    @GetMapping("/trending")
-    public ResponseEntity<?> getTrending(@RequestParam(value = "deleted", defaultValue = "") Boolean isDeleted) {
-        return newsService.getTrendingService(isDeleted);
-    }
+    
 
     @GetMapping("/latest")
     public ResponseEntity<?> getLatestNews() {
@@ -59,8 +51,5 @@ public class NewsController {
         return newsService.getRecomendedService();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteNews(@PathVariable(value = "id") String id){
-        return newsService.deleteNews(id);
-    }
+    
 }

@@ -1,4 +1,4 @@
-package com.example.newsApps.controller;
+package com.example.newsApps.controller.guest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import com.example.newsApps.payload.request.KomentarRequest;
 import com.example.newsApps.services.komentar.KomentarService;
 
 @RestController
-@RequestMapping("/komentar")
+@RequestMapping("/guest/komentar")
 public class KomentarController {
 
     @Autowired

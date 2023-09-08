@@ -1,7 +1,6 @@
 package com.example.newsApps.payload.request;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -19,7 +18,5 @@ public class UserRegisRequest {
     @NotEmpty(message = "password tidak boleh kosong")
     @Size(min = 8, max = 15, message = "password minimal 8 character dan maksimal 15 character")
     private String password;
-    @NotNull(message = "role harus diisi")
-    private Boolean isAdmin;
     
 }

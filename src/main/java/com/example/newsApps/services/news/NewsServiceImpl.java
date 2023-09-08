@@ -68,14 +68,14 @@ public class NewsServiceImpl implements NewsService {
 
         newsValidation.validateNews(news);
 
-        if (user.getIsAdmin() == true) {
-            news.setIsRecomended(true);
-            newsRepository.save(news);
+        // if (user.getIsAdmin() == true) {
+        //     news.setIsRecomended(true);
+        //     newsRepository.save(news);
 
             return ResponseHandler.responseMessage(201, "succses", true);
-        } else {
-            return ResponseHandler.responseError(401, "eror", false);
-        }
+        // } else {
+            // return ResponseHandler.responseError(401, "eror", false);
+        // }
     }
 
     @Override
